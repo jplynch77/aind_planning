@@ -12,9 +12,15 @@ from lp_utils import (
 from my_planning_graph import PlanningGraph
 from run_search import run_search
 
+# First thing to notice how many dependencies are even required to formulate
+# a basic planning problem. The most important of these dependencies is
+# PropKB, Action, expr, Fluent, encode_state, decode_state. Of those I would
+# say the most important in the Action dependency. This is where the general
+# problem class is defined.
 
 class HaveCakeProblem(Problem):
     def __init__(self, initial: FluentState, goal: list):
+        # initial is a FluentState object and initial.pos is an instance variable.
         self.state_map = initial.pos + initial.neg
         Problem.__init__(self, encode_state(initial, self.state_map), goal=goal)
         self.actions_list = self.get_actions()
